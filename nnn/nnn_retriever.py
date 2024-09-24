@@ -12,17 +12,20 @@ import faiss
 class NNNRetriever:
     def __init__(
         self, 
-        retrieval_embeds: np.matrix, 
+        retrieval_embeds: np.matrix,
         reference_embeds: np.matrix,
+        alternate_ks: int = 256,
+        batch_size: int = 128,
+        alt_weight = 0.5,
+        # GPU-related params
+        use_gpu: bool = False,
+        gpu_id: int = -1,
+        # FAISS params
         use_faiss_reference: bool = False,
         faiss_reference_index = None,
         use_faiss_retrieval: bool = False,
         faiss_retrieval_index = None,
-        use_gpu: bool = False,
-        gpu_id: int = -1,
-        alternate_ks: int = 256,
-        batch_size: int = 128,
-        alt_weight = 0.5,
+        # Distribution Normalization params
         distribution_normalization = False,
         retrieval_dev_embeds = None,
         query_dev_embeds = None,
@@ -32,8 +35,10 @@ class NNNRetriever:
         self.alt_weight = alt_weight
         self.batch_size = batch_size
         self.alternate_ks = alternate_ks
+        
         if use_gpu and gpu_id == -1:
             raise Exception("GPU flag set but no GPU device given!")
+        
         self.device = 'cpu' if not use_gpu else f'cuda:{gpu_id}'
         self.embed_size = retrieval_embeds.shape[1]
         self.distribution_normalization = distribution_normalization
@@ -82,8 +87,7 @@ class NNNRetriever:
             else:
                 self.faiss_reference_index = faiss_reference_index
         else:
-            # TODO: get rid of this magic constant
-            nlist = 2048
+            base_nlist = 2048
             quantizer = faiss.IndexFlatIP(self.embed_size)
             cpu_index = faiss.IndexIVFFlat(quantizer, self.embed_size, nlist, faiss.METRIC_INNER_PRODUCT)
             if use_gpu:
@@ -109,8 +113,6 @@ class NNNRetriever:
             else:
                 self.faiss_retrieval_index = faiss_retrieval_index
         else:
-            # TODO: get rid of this magic constant
-            nlist = 32
             # IMPORTANT: we add 1 to the dimension since we append the reference scores to the embeds
             cpu_index = faiss.IndexFlatIP(self.embed_size + 1)
             if use_gpu:
