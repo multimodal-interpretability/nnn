@@ -127,7 +127,7 @@ class NNNRetriever:
         self.faiss_retrieval_index.train(modified_retrieval_embeds)
         self.faiss_retrieval_index.add(modified_retrieval_embeds)
         # TODO: get rid of this magic constant
-        self.faiss_reference_index.nprobe = 16
+        self.faiss_reference_index.nprobe = 32
             
     def compute_alignment_means(self, alternate_ks):
         if self.use_faiss_reference:
@@ -142,7 +142,6 @@ class NNNRetriever:
     def compute_alignment_means_exhaustive(self, alternate_ks):
         alignment_means = []
         for i in tqdm(range(0, self.torch_retrieval_embeds.shape[0], self.batch_size)):
-            
             batch_reference_similarity_scores = torch.einsum("ik,jk->ij", self.torch_retrieval_embeds[i:i+self.batch_size, :], self.torch_reference_embeds)
             top_k_reference_scores = torch.topk(batch_reference_similarity_scores, alternate_ks, dim=1)
             alignment_means.append(torch.mean(top_k_reference_scores.values, dim=1, keepdim=True))
