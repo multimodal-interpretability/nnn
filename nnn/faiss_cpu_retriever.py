@@ -1,6 +1,5 @@
-from retriever import Retriever
+from nnn import Retriever
 import torch
-from tqdm import tqdm
 import numpy as np
 import faiss
 

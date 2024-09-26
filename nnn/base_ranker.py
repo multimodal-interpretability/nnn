@@ -1,9 +1,7 @@
-from retriever import Retriever
-from ranker import Ranker
+from .retriever import Retriever
+from .ranker import Ranker
 import torch
-from tqdm import tqdm
 import numpy as np
-import faiss
 
 
 class BaseRanker(Ranker):

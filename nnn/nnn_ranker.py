@@ -1,9 +1,7 @@
-from retriever import Retriever
-from ranker import Ranker
+from .retriever import Retriever
+from .ranker import Ranker
 import torch
-from tqdm import tqdm
 import numpy as np
-import faiss
 
 
 class NNNRanker(Ranker):
@@ -18,7 +16,7 @@ class NNNRanker(Ranker):
         # gpu params
         use_gpu: bool = False,
         gpu_id: int = -1,
-    ):
+    ) -> None:
         self.retriever = retriever
         self.alternate_weight = alternate_weight
         self.batch_size = batch_size

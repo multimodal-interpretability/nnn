@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nnn-retrieval"
+version = "0.1"
+description = "Simple and efficient training-free methods for correcting errors in contrastive image-text retrieval!"
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "MIT License"}
+authors = [
+    {name = "Neil Chowdhury"},
+    {name = "Sumedh Shenoy"},
+    {name = "Franklin Wang"},
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch",
+    "tqdm",
+    "numpy",
+    "faiss-cpu",
+]
+
+[project.optional-dependencies]
+gpu = ["faiss-gpu-cu12"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*"]

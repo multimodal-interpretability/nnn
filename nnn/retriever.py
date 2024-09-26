@@ -1,7 +1,4 @@
 from abc import ABC, abstractmethod
-import torch
-from tqdm import tqdm
-import numpy as np
 
 class Retriever(ABC):
     @abstractmethod
