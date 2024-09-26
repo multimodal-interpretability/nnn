@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
+
 class Ranker(ABC):
     @abstractmethod
     def search(self, batch_query: np.matrix, top_k: int):

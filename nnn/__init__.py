@@ -9,4 +9,14 @@ from .nnn_retriever import NNNRetriever
 from .faiss_cpu_retriever import FaissCPURetriever
 from .faiss_gpu_retriever import FaissGPURetriever
 
-__all__ = ["Ranker", "BaseRanker", "NNNRanker", "DNRanker", "Retriever", "BaseRetriever", "NNNRetriever", "FaissCPURetriever", "FaissGPURetriever"]
+__all__ = [
+    "Ranker",
+    "BaseRanker",
+    "NNNRanker",
+    "DNRanker",
+    "Retriever",
+    "BaseRetriever",
+    "NNNRetriever",
+    "FaissCPURetriever",
+    "FaissGPURetriever",
+]

@@ -32,7 +32,7 @@ dependencies = [
 
 [project.optional-dependencies]
 gpu = ["faiss-gpu-cu12"]
-dev = ["pytest"]
+dev = ["pytest", "pre-commit"]
 
 [tool.setuptools.packages.find]
 where = ["."]
