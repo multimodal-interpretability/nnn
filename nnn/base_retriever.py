@@ -19,12 +19,7 @@ class BaseRetriever(Retriever):
             raise Exception("GPU flag set but no GPU device given!")
         
     def compute_alignment_means(self, retrieval_embeds, reference_embeds, alternate_ks, batch_size):
-        alignment_means = []
-        for i in tqdm(range(0, retrieval_embeds.shape[0], batch_size)):
-            batch_reference_similarity_scores = torch.einsum("ik,jk->ij", retrieval_embeds[i : i + batch_size, :], reference_embeds)
-            top_k_reference_scores = torch.topk(batch_reference_similarity_scores, alternate_ks, dim=1)
-            alignment_means.append(torch.mean(top_k_reference_scores.values, dim=1, keepdim=True))
-        return torch.cat(alignment_means)
+        return torch.zeros((retrieval_embeds.shape[0],), device=retrieval_embeds.device)
     
     def setup_retriever(self, retrieval_embeds, reference_embeds, alternate_ks, batch_size):
         alignment_means = self.compute_alignment_means(retrieval_embeds, reference_embeds, alternate_ks, batch_size)
@@ -34,7 +29,7 @@ class BaseRetriever(Retriever):
         distances = []
         indices = []
         for i in tqdm(range(0, batch_query.shape[0], batch_size)):
-            batch_similarity_scores = torch.einsum("ik,jk->ij", batch_query[i:i + batch_size, :], retrieval_embeds) - alternate_weight * alignment_means.T
+            batch_similarity_scores = torch.einsum("ik,jk->ij", batch_query[i:i + batch_size, :], retrieval_embeds)
             top_k_results = torch.topk(batch_similarity_scores, top_k, dim=1)
             distances.append(top_k_results.values)
             indices.append(top_k_results.indices)

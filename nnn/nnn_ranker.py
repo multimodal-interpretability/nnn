@@ -6,19 +6,23 @@ import numpy as np
 import faiss
 
 
-class BaseRanker(Ranker):
+class NNNRanker(Ranker):
     def __init__(
         self, 
         retriever: Retriever,
         retrieval_embeds: np.matrix,
         reference_embeds: np.matrix,
+        alternate_ks: int = 256,
         batch_size: int = 128,
+        alternate_weight = 0.5, # can remove this?
         # gpu params
         use_gpu: bool = False,
         gpu_id: int = -1,
     ):
         self.retriever = retriever
+        self.alternate_weight = alternate_weight
         self.batch_size = batch_size
+        self.alternate_ks = alternate_ks
         
         if use_gpu and gpu_id == -1:
             raise Exception("GPU flag set but no GPU device given!")
@@ -38,8 +42,8 @@ class BaseRanker(Ranker):
         self.retrieval_embeds = retrieval_embeds
         self.torch_retrieval_embeds = torch.tensor(retrieval_embeds, device=self.device)
 
-        self.alignment_means = torch.zeros((self.torch_retrieval_embeds.shape[0]), device=self.device) #torch.tensor(retriever.setup_retriever(self.torch_retrieval_embeds, self.torch_reference_embeds, self.alternate_ks, self.batch_size), device=self.device)
+        self.alignment_means = torch.tensor(retriever.setup_retriever(self.torch_retrieval_embeds, self.torch_reference_embeds, self.alternate_ks, self.batch_size), device=self.device)
 
     def search(self, batch_query: np.matrix, top_k):
         torch_batch_query = torch.tensor(batch_query, device=self.device)
-        return self.retriever.retrieve(self.torch_retrieval_embeds, torch_batch_query, top_k, 0, self.alignment_means, self.batch_size)
+        return self.retriever.retrieve(self.torch_retrieval_embeds, torch_batch_query, top_k, self.alternate_weight, self.alignment_means, self.batch_size)
