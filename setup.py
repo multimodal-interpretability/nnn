@@ -12,8 +12,11 @@ setup(
         'tqdm',
         'numpy',                    # Numerical computations
         'faiss-cpu',                # Potentially moving to optional dependency...
-        'faiss-gpu'
+        'faiss-gpu-cu11'
     ],
+    extras_require={
+        'faiss-gpu': ['faiss-gpu-cu11'] 
+    },
     author="Neil Chowdhury, Sumedh Shenoy, and Franklin Wang",
     description="Simple and efficient training-free methods for correcting errors in contrastive image-text retrieval!",
     long_description=long_description,
