@@ -1,4 +1,4 @@
-from .retriever import Retriever
+from retriever import Retriever
 import torch
 from tqdm import tqdm
 import numpy as np
@@ -13,6 +13,9 @@ class FaissCPURetriever(Retriever):
                  retrieval_index = None,
                  retrieval_nprobes = 32
         ):
+        self.gpu_id = -1
+        self.use_gpu = False
+
         if reference_index is None:
             # set default reference index to flatip
             self.reference_index = faiss.IndexFlatIP(embeds_size)
@@ -41,10 +44,14 @@ class FaissCPURetriever(Retriever):
         # train your indices here
         # check that the dimensions are the right sizes
         self.check_dimensions(retrieval_embeds)
-        self.reference_index.train(reference_embeds.numpy())
+        if not self.reference_index.is_trained:
+            self.reference_index.train(reference_embeds.numpy())
+        self.reference_index.add(reference_embeds.numpy())
         alignment_means = self.compute_alignment_means(retrieval_embeds, reference_embeds, alternate_ks, batch_size)
         modified_retrieval_embeds = np.concatenate([retrieval_embeds.numpy(), alignment_means], axis=1)
-        self.faiss_retrieval_index.train(modified_retrieval_embeds)
+        if not self.retrieval_index.is_trained:
+            self.retrieval_index.train(modified_retrieval_embeds)
+        self.retrieval_index.add(modified_retrieval_embeds)
         
         return alignment_means
     

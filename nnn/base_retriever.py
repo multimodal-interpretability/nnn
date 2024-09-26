@@ -1,4 +1,4 @@
-from .retriever import Retriever
+from retriever import Retriever
 import torch
 from tqdm import tqdm
 import numpy as np
@@ -13,7 +13,7 @@ class BaseRetriever(Retriever):
 
         self.embeds_size = embeds_size
         self.use_gpu = use_gpu
-        self.gpu_id = -1
+        self.gpu_id = gpu_id
 
         if self.use_gpu and self.gpu_id == -1:
             raise Exception("GPU flag set but no GPU device given!")
@@ -21,7 +21,7 @@ class BaseRetriever(Retriever):
     def compute_alignment_means(self, retrieval_embeds, reference_embeds, alternate_ks, batch_size):
         alignment_means = []
         for i in tqdm(range(0, retrieval_embeds.shape[0], batch_size)):
-            batch_reference_similarity_scores = torch.einsum(retrieval_embeds[i : i + batch_size, :], reference_embeds)
+            batch_reference_similarity_scores = torch.einsum("ik,jk->ij", retrieval_embeds[i : i + batch_size, :], reference_embeds)
             top_k_reference_scores = torch.topk(batch_reference_similarity_scores, alternate_ks, dim=1)
             alignment_means.append(torch.mean(top_k_reference_scores.values, dim=1, keepdim=True))
         return torch.cat(alignment_means)

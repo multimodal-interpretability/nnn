@@ -1,5 +1,5 @@
-from .retriever import Retriever
-from .ranker import Ranker
+from retriever import Retriever
+from ranker import Ranker
 import torch
 from tqdm import tqdm
 import numpy as np
@@ -46,4 +46,4 @@ class BaseRanker(Ranker):
 
     def search(self, batch_query: np.matrix, top_k):
         torch_batch_query = torch.tensor(batch_query, device=self.device)
-        return self.retriever.retrieve(self.torch_retrieval_embeds, torch_batch_query, top_k, self.alternate_weight, self.alignment_means)
+        return self.retriever.retrieve(self.torch_retrieval_embeds, torch_batch_query, top_k, self.alternate_weight, self.alignment_means, self.batch_size)

@@ -20,18 +20,12 @@ class NNNRetriever:
         # GPU-related params
         use_gpu: bool = False,
         gpu_id: int = -1,
-        # FAISS params
-        use_faiss_reference: bool = False,
-        faiss_reference_index = None,
-        use_faiss_retrieval: bool = False,
-        faiss_retrieval_index = None,
         # Distribution Normalization params
         distribution_normalization = False,
         retrieval_dev_embeds = None,
         query_dev_embeds = None,
         dn_lambda = 0.5
-        ):
-
+    ):
         self.alt_weight = alt_weight
         self.batch_size = batch_size
         self.alternate_ks = alternate_ks
