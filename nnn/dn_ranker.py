@@ -1,5 +1,5 @@
-from .retriever import Retriever
-from .ranker import Ranker
+from retriever import Retriever
+from ranker import Ranker
 import torch
 from tqdm import tqdm
 import numpy as np
@@ -27,6 +27,7 @@ class DNRanker(Ranker):
         self.alternate_weight = alternate_weight
         self.batch_size = batch_size
         self.alternate_ks = alternate_ks
+        self.dn_lambda = dn_lambda
         
         if use_gpu and gpu_id == -1:
             raise Exception("GPU flag set but no GPU device given!")
@@ -59,4 +60,4 @@ class DNRanker(Ranker):
 
     def search(self, batch_query: np.matrix, top_k):
         torch_batch_query = torch.tensor(batch_query - self.dn_lambda * self.query_dev_embeds_avg, device=self.device)
-        return self.retriever.retrieve(self.torch_retrieval_embeds, torch_batch_query, top_k, self.alternate_weight, self.alignment_means)
+        return self.retriever.retrieve(self.torch_retrieval_embeds, torch_batch_query, top_k, self.alternate_weight, self.alignment_means, self.batch_size)
