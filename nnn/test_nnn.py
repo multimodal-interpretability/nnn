@@ -3,7 +3,6 @@ from .base_retriever import BaseRetriever
 from .base_ranker import BaseRanker
 from .nnn_retriever import NNNRetriever
 from .nnn_ranker import NNNRanker
-import faiss
 import math
 import pytest
 
@@ -62,7 +61,7 @@ def test_exhaustive_search():
     print("passed exhaustive search!")
 
 def test_faiss_cpu_search():
-    from faiss_cpu_retriever import FaissCPURetriever
+    from .faiss_cpu_retriever import FaissCPURetriever
 
     square_retrieval_points = np.array([
         [0, 1.0, 0, 0],
@@ -103,7 +102,7 @@ def test_faiss_cpu_search():
     print("passed faiss cpu!")
 
 def test_faiss_gpu_search():
-    from faiss_gpu_retriever import FaissGPURetriever
+    from .faiss_gpu_retriever import FaissGPURetriever
     square_retrieval_points = np.array([
         [0, 1.0, 0, 0],
         [1, 0, 0, 0],
@@ -144,9 +143,14 @@ def test_faiss_gpu_search():
 
 if __name__ == "__main__":
     test_exhaustive_search()
-    print(hasattr(faiss, 'StandardGpuResources'))
-    if hasattr(faiss, 'StandardGpuResources'):
-        print("has faiss gpu installed")
-        test_faiss_gpu_search()
-    else:
-        test_faiss_cpu_search()
+    try:
+        import faiss
+        print(hasattr(faiss, 'StandardGpuResources'))
+        if hasattr(faiss, 'StandardGpuResources'):
+            print("has faiss gpu installed")
+            test_faiss_gpu_search()
+        else:
+            test_faiss_cpu_search()
+    except:
+        print("faiss not installed!")
+
