@@ -1,4 +1,4 @@
-from nnn import Retriever
+from retriever import Retriever
 import torch
 import numpy as np
 import faiss
@@ -84,7 +84,7 @@ class FaissCPURetriever(Retriever):
         # append -alt_weight to each vector in the query to account for the -alt_weight * reference_score term
         batch_query = batch_query.numpy()
         batch_query = np.concatenate(
-            [batch_query, -alternate_weight * np.ones((batch_query.shape[0], 1))],
+            [batch_query, -alternate_weight * np.ones((batch_query.shape[0], 1), dtype=np.float32)],
             axis=1,
         )
         distances, indices = self.retrieval_index.search(batch_query, top_k)

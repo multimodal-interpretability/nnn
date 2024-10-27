@@ -1,4 +1,4 @@
-from .retriever import Retriever
+from retriever import Retriever
 import numpy as np
 import faiss
 
@@ -70,15 +70,15 @@ class FaissGPURetriever(Retriever):
             [numpy_retrieval_embeds, alignment_means], axis=1
         )
         if not self.retrieval_index.is_trained:
-            self.faiss_retrieval_index.train(modified_retrieval_embeds)
-        self.faiss_retrieval_index.add(modified_retrieval_embeds)
-
+            self.retrieval_index.train(modified_retrieval_embeds)
+        self.retrieval_index.add(modified_retrieval_embeds)
+        print("set up gpu things!")
         return alignment_means
 
     def compute_alignment_means(
         self, retrieval_embeds, reference_embeds, alternate_ks, batch_size
     ):
-        reference_embeds = reference_embeds.cpu().numpy()
+        retrieval_embeds = retrieval_embeds.cpu().numpy()
         batch_reference_scores, indices = self.reference_index.search(
             retrieval_embeds, alternate_ks
         )
@@ -96,7 +96,7 @@ class FaissGPURetriever(Retriever):
         # append -alt_weight to each vector in the query to account for the -alt_weight * reference_score term
         batch_query = batch_query.cpu().numpy()
         batch_query = np.concatenate(
-            [batch_query, -alternate_weight * np.ones((batch_query.shape[0], 1))],
+            [batch_query, -alternate_weight * np.ones((batch_query.shape[0], 1), dtype=np.float32)],
             axis=1,
         )
         distances, indices = self.retrieval_index.search(batch_query, top_k)
