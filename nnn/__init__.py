@@ -6,8 +6,15 @@ from .dn_ranker import DNRanker
 from .retriever import Retriever
 from .base_retriever import BaseRetriever
 from .nnn_retriever import NNNRetriever
-from .faiss_cpu_retriever import FaissCPURetriever
-from .faiss_gpu_retriever import FaissGPURetriever
+try:
+    from .faiss_cpu_retriever import FaissCPURetriever
+except ImportError:
+    print("faiss-cpu not installed, cannot use faiss cpu retriever.")
+
+try:
+    from .faiss_gpu_retriever import FaissGPURetriever
+except:
+    print("faiss-gpu not installed, cannot use faiss gpu retriever")
 
 __all__ = [
     "Ranker",
@@ -17,6 +24,4 @@ __all__ = [
     "Retriever",
     "BaseRetriever",
     "NNNRetriever",
-    "FaissCPURetriever",
-    "FaissGPURetriever",
 ]

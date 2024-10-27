@@ -3,7 +3,6 @@ import torch
 import numpy as np
 import faiss
 
-
 class FaissCPURetriever(Retriever):
     def __init__(
         self,
