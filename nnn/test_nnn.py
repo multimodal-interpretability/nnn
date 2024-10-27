@@ -1,8 +1,8 @@
 import numpy as np
-from base_retriever import BaseRetriever
-from base_ranker import BaseRanker
-from nnn_retriever import NNNRetriever
-from nnn_ranker import NNNRanker
+from .base_retriever import BaseRetriever
+from .base_ranker import BaseRanker
+from .nnn_retriever import NNNRetriever
+from .nnn_ranker import NNNRanker
 import faiss
 import math
 import pytest

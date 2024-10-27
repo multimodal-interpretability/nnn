@@ -1,5 +1,5 @@
-from retriever import Retriever
-from ranker import Ranker
+from .retriever import Retriever
+from .ranker import Ranker
 import torch
 import numpy as np
 

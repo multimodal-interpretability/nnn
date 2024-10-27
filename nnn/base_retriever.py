@@ -1,4 +1,4 @@
-from retriever import Retriever
+from .retriever import Retriever
 import torch
 from tqdm import tqdm
 import numpy as np
