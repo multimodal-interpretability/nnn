@@ -17,7 +17,7 @@ class BaseRetriever(Retriever):
     def compute_alignment_means(
         self, retrieval_embeds, reference_embeds, alternate_ks, batch_size
     ):
-        return torch.zeros((retrieval_embeds.shape[0],), device=retrieval_embeds.device)
+        return (torch.zeros((retrieval_embeds.shape[0],), device=retrieval_embeds.device)).cpu().numpy()
 
     def setup_retriever(
         self, retrieval_embeds, reference_embeds, alternate_ks, batch_size

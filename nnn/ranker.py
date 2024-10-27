@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
 import numpy as np
+from typing import Tuple
 
 
 class Ranker(ABC):
     @abstractmethod
-    def search(self, batch_query: np.matrix, top_k: int):
+    def search(self, batch_query: np.matrix, top_k: int) -> Tuple[np.matrix, np.matrix]:
         """
         Abstract method to search for the top_k most similar items to the given batch of queries.
 

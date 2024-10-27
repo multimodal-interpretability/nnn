@@ -27,11 +27,11 @@ dependencies = [
     "torch",
     "tqdm",
     "numpy",
-    "faiss-cpu",
 ]
 
 [project.optional-dependencies]
-gpu = ["faiss-gpu-cu12"]
+faiss_cpu = ["faiss-cpu"]
+faiss_gpu = ["faiss-gpu"]
 dev = ["pytest", "pre-commit"]
 
 [tool.setuptools.packages.find]

@@ -27,7 +27,7 @@ class NNNRetriever(Retriever):
             alignment_means.append(
                 torch.mean(top_k_reference_scores.values, dim=1, keepdim=True)
             )
-        return torch.cat(alignment_means)
+        return (torch.cat(alignment_means)).cpu().numpy()
 
     def setup_retriever(
         self, retrieval_embeds, reference_embeds, alternate_ks, batch_size

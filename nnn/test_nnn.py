@@ -6,9 +6,7 @@ from .nnn_ranker import NNNRanker
 import math
 import pytest
 
-def test_addition_still_works():
-    assert 1 + 1 == 2
-
+@pytest.mark.not_faiss  # This test does not depend on FAISS
 def test_exhaustive_search():
     square_retrieval_points = np.array([
         [0, 1.0, 0, 0],
@@ -60,6 +58,7 @@ def test_exhaustive_search():
         assert(scores[i] == pytest.approx(gt_new_scores[i], abs=2e-5))
     print("passed exhaustive search!")
 
+@pytest.mark.faiss_cpu  # This test is for FAISS-CPU
 def test_faiss_cpu_search():
     from .faiss_cpu_retriever import FaissCPURetriever
 
@@ -101,6 +100,7 @@ def test_faiss_cpu_search():
         assert(scores[i] == pytest.approx(gt_new_scores[i], abs=2e-5))
     print("passed faiss cpu!")
 
+@pytest.mark.faiss_gpu  # This test is for FAISS-GPU
 def test_faiss_gpu_search():
     from .faiss_gpu_retriever import FaissGPURetriever
     square_retrieval_points = np.array([
@@ -141,6 +141,7 @@ def test_faiss_gpu_search():
         assert(scores[i] == pytest.approx(gt_new_scores[i], abs=2e-5))
     print("passed faiss gpu!")
 
+"""
 if __name__ == "__main__":
     test_exhaustive_search()
     try:
@@ -153,4 +154,4 @@ if __name__ == "__main__":
             test_faiss_cpu_search()
     except:
         print("faiss not installed!")
-
+"""

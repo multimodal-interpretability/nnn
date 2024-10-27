@@ -1,17 +1,18 @@
 from abc import ABC, abstractmethod
-
+import numpy as np
+from typing import Tuple
 
 class Retriever(ABC):
     @abstractmethod
     def compute_alignment_means(
         self, retrieval_embeds, reference_embeds, alternate_ks, batch_size
-    ):
+    ) -> np.matrix:
         pass
 
     @abstractmethod
     def setup_retriever(
         self, retrieval_embeds, reference_embeds, alternate_ks, batch_size
-    ):
+    ) -> np.matrix:
         pass
 
     @abstractmethod
@@ -23,5 +24,5 @@ class Retriever(ABC):
         alternate_weight,
         alignment_means,
         batch_size,
-    ):
+    ) -> Tuple[np.matrix, np.matrix]:
         pass
