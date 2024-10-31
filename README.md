@@ -74,5 +74,6 @@ else:
 
 _, indices = nnn_ranker.search(text_embedding, 5)
 print("Ranked image indices:", indices)
+# Ranked image indices: [[0 4 2 3 1]]
 
 ```
