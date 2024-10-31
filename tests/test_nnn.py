@@ -75,7 +75,7 @@ def test_exhaustive_search():
 @pytest.mark.faiss_cpu  # This test is for FAISS-CPU
 def test_faiss_cpu_search():
     import faiss
-    from ..nnn.faiss_cpu_retriever import FaissCPURetriever
+    from nnn import FaissCPURetriever
 
     square_retrieval_points = np.array(
         [[0, 1.0, 0, 0], [1, 0, 0, 0], [0, -1, 0, 0], [-1, 0, 0, 0], [0, 0, 1, 0]],
@@ -130,7 +130,7 @@ def test_faiss_cpu_search():
 @pytest.mark.faiss_gpu  # This test is for FAISS-GPU
 def test_faiss_gpu_search():
     import faiss
-    from ..nnn.faiss_gpu_retriever import FaissGPURetriever
+    from nnn import FaissGPURetriever
 
     square_retrieval_points = np.array(
         [[0, 1.0, 0, 0], [1, 0, 0, 0], [0, -1, 0, 0], [-1, 0, 0, 0], [0, 0, 1, 0]],
