@@ -65,7 +65,7 @@ with torch.no_grad():
     reference_embeddings = model.get_text_features(**reference_inputs).cpu().numpy()
 
 # Perform ranking using NNN
-if torch.cuda.is_available():
+if device == "cuda":
     nnn_retriever = NNNRetriever(image_embeddings.shape[1], use_gpu=True, gpu_id=0)
     nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=8, batch_size=8, use_gpu=True, gpu_id=0)
 else:
