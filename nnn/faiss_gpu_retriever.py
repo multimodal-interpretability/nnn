@@ -18,7 +18,7 @@ class FaissGPURetriever(Retriever):
 
         Args:
             embeds_size (int): The dimension size of embeddings.
-            gpu_id (int): Specifies GPU device ID if `use_gpu` is True. 
+            gpu_id (int): Specifies GPU device ID if `use_gpu` is True.
                                     Default is -1 (no GPU device).
             reference_index (Faiss index): a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.
             reference_nprobes (int): See nprobes for Faiss indices.
@@ -33,7 +33,7 @@ class FaissGPURetriever(Retriever):
         if reference_index is None:
             # set default reference index to flatip
             cpu_reference_index = faiss.IndexFlatIP(embeds_size)
-            print("cpu_reference_index defined here!")
+
         else:
             if reference_index.metric_type != faiss.METRIC_INNER_PRODUCT:
                 raise Exception("FAISS retrieval index must use inner product metric!")
@@ -84,7 +84,7 @@ class FaissGPURetriever(Retriever):
         if not self.retrieval_index.is_trained:
             self.retrieval_index.train(modified_retrieval_embeds)
         self.retrieval_index.add(modified_retrieval_embeds)
-        print("set up gpu things!")
+
         return alignment_means
 
     def compute_alignment_means(
@@ -108,7 +108,11 @@ class FaissGPURetriever(Retriever):
         # append -alt_weight to each vector in the query to account for the -alt_weight * reference_score term
         batch_query = batch_query.cpu().numpy()
         batch_query = np.concatenate(
-            [batch_query, -alternate_weight * np.ones((batch_query.shape[0], 1), dtype=np.float32)],
+            [
+                batch_query,
+                -alternate_weight
+                * np.ones((batch_query.shape[0], 1), dtype=np.float32),
+            ],
             axis=1,
         )
         distances, indices = self.retrieval_index.search(batch_query, top_k)

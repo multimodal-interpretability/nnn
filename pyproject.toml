@@ -36,4 +36,5 @@ dev = ["pytest", "pre-commit"]
 
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["nnn*"]
 exclude = ["tests*"]

@@ -51,7 +51,6 @@ class NNNRanker(Ranker):
             ),
             device=self.device,
         )
-        print("initialized!")
 
     def search(self, batch_query: np.matrix, top_k):
         torch_batch_query = torch.tensor(batch_query, device=self.device)
