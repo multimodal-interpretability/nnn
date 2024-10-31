@@ -4,16 +4,19 @@ Simple and efficient training-free methods for correcting errors in contrastive 
 
 ## Installation
 
+You can install directly using `pip install git+https://github.com/multimodal-interpretability/nnn.git`.
+
+For development, you can clone this repo locally, then install the package:
+
 For CPU-only:
 ```
 pip install -e .
 ```
 
-For Faiss GPU support, install the `gpu` extras:
+(TODO: remove?) For Faiss GPU support, install the `gpu` extras:
 ```
 pip install -e .[gpu]
 ```
-
 
 ## Example usage
 
