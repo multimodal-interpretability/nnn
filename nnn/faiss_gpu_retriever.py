@@ -13,6 +13,18 @@ class FaissGPURetriever(Retriever):
         retrieval_index=None,
         retrieval_nprobes=32,
     ):
+        """
+        Initializes a new instance of FaissCPURetriever.
+
+        Args:
+            embeds_size (int): The dimension size of embeddings.
+            gpu_id (int): Specifies GPU device ID if `use_gpu` is True. 
+                                    Default is -1 (no GPU device).
+            reference_index (Faiss index): a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.
+            reference_nprobes (int): See nprobes for Faiss indices.
+            retrieval_index (Faiss index): a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.
+            retrieval_nprobes (int): See nprobes for Faiss indices.
+        """
         self.gpu_id = gpu_id
         self.use_gpu = True
 

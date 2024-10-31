@@ -12,6 +12,16 @@ class FaissCPURetriever(Retriever):
         retrieval_index=None,
         retrieval_nprobes=32,
     ):
+        """
+        Initializes a new instance of FaissCPURetriever.
+
+        Args:
+            embeds_size (int): The dimension size of embeddings.
+            reference_index (Faiss index): a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.
+            reference_nprobes (int): See nprobes for Faiss indices.
+            retrieval_index (Faiss index): a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.
+            retrieval_nprobes (int): See nprobes for Faiss indices.
+        """
         self.gpu_id = -1
         self.use_gpu = False
 

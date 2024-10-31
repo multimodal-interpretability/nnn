@@ -5,7 +5,19 @@ from tqdm import tqdm
 
 class NNNRetriever(Retriever):
     def __init__(self, embeds_size: int, use_gpu: bool = False, gpu_id: int = -1):
+        """
+        Initializes a new instance of NNNRetriever.
 
+        Args:
+            embeds_size (int): The dimension size of embeddings.
+            use_gpu (bool, optional): If True, will attempt to use GPU. Default is False.
+            gpu_id (int, optional): Specifies GPU device ID if `use_gpu` is True. 
+                                    Default is -1 (no GPU device).
+
+        Raises:
+            Exception: If `use_gpu` is True but `gpu_id` is not specified.
+        """
+        
         self.embeds_size = embeds_size
         self.use_gpu = use_gpu
         self.gpu_id = gpu_id
