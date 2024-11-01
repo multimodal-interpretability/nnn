@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>nnn.faiss_gpu_retriever &#8212; Nearest Neighbor Normalization 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=56c4699f" />
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-nnn.faiss_gpu_retriever">
+<span id="nnn-faiss-gpu-retriever"></span><h1>nnn.faiss_gpu_retriever<a class="headerlink" href="#module-nnn.faiss_gpu_retriever" title="Link to this heading">¶</a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#nnn.faiss_gpu_retriever.FaissGPURetriever" title="nnn.faiss_gpu_retriever.FaissGPURetriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FaissGPURetriever</span></code></a>(embeds_size, gpu_id[, ...])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.faiss_gpu_retriever.FaissGPURetriever">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.faiss_gpu_retriever.</span></span><span class="sig-name descname"><span class="pre">FaissGPURetriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_nprobes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_nprobes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.faiss_gpu_retriever.FaissGPURetriever" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nnn.faiss_gpu_retriever.FaissGPURetriever.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_nprobes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_nprobes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.faiss_gpu_retriever.FaissGPURetriever.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes a new instance of FaissCPURetriever.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embeds_size</strong> (<em>int</em>) – The dimension size of embeddings.</p></li>
+<li><p><strong>gpu_id</strong> (<em>int</em>) – Specifies GPU device ID if <cite>use_gpu</cite> is True.
+Default is -1 (no GPU device).</p></li>
+<li><p><strong>reference_index</strong> (<em>Faiss index</em>) – a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.</p></li>
+<li><p><strong>reference_nprobes</strong> (<em>int</em>) – See nprobes for Faiss indices.</p></li>
+<li><p><strong>retrieval_index</strong> (<em>Faiss index</em>) – a Faiss index to be used to search reference embeddings. Should use inner product metric, as this is the distance metric we are operating in.</p></li>
+<li><p><strong>retrieval_nprobes</strong> (<em>int</em>) – See nprobes for Faiss indices.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.faiss_gpu_retriever.FaissGPURetriever.compute_alignment_means">
+<span class="sig-name descname"><span class="pre">compute_alignment_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.faiss_gpu_retriever.FaissGPURetriever.compute_alignment_means" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Computes mean similarity scores between per-retrieval embedding, using a given set reference embeddings.
+As described in the paper, these mean scores are later used as an additive correction to the base retrieval scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average across.i</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.faiss_gpu_retriever.FaissGPURetriever.retrieve">
+<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignment_means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.faiss_gpu_retriever.FaissGPURetriever.retrieve" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; all retrieval should be done from the Ranker interface.</p>
+<p>Retrieves the top_k most similar items for a batch of query embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>batch_query</strong> (<em>torch.Tensor</em>) – Query embeddings to retrieve items for.</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – Number of top items to retrieve.</p></li>
+<li><p><strong>alternate_weight</strong> (<em>float</em>) – Weight to adjust alignment means in similarity scores.</p></li>
+<li><p><strong>alignment_means</strong> (<em>torch.Tensor</em>) – Precomputed alignment means per retrieval embedding to adjust retrieval scores.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Contains two numpy arrays:</dt><dd><ul class="simple">
+<li><p>distances: The top-k similarity scores for each query.</p></li>
+<li><p>indices: The indices of the top-k retrieved items.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.faiss_gpu_retriever.FaissGPURetriever.setup_retriever">
+<span class="sig-name descname"><span class="pre">setup_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.faiss_gpu_retriever.FaissGPURetriever.setup_retriever" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Sets up the retriever by calculating alignment means for retrieval, allowing for alignment
+means to be used at inference time for retrieval as described in the paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Nearest Neighbor Normalization</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Sumedh Shenoy, Neil Chowdhury, Franklin Wang.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/_autosummary/nnn.faiss_gpu_retriever.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -13,3 +13,13 @@ See https://github.com/multimodal-interpretability/nnn for an overview of the pa
    :maxdepth: 2
    :caption: Contents:
 
+.. autosummary::
+   :toctree: _autosummary
+   nnn.nnn_ranker
+   nnn.dn_ranker
+   nnn.base_ranker
+   nnn.nnn_retriever
+   nnn.faiss_cpu_retriever
+   nnn.faiss_gpu_retriever
+   nnn.base_retriever
+

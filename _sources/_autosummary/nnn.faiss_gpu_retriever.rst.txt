@@ -1,0 +1,12 @@
+﻿nnn.faiss\_gpu\_retriever
+=========================
+
+.. automodule:: nnn.faiss_gpu_retriever
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      FaissGPURetriever
+   

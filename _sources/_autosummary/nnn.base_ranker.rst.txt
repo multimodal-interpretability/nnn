@@ -1,0 +1,12 @@
+﻿nnn.base\_ranker
+================
+
+.. automodule:: nnn.base_ranker
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BaseRanker
+   
