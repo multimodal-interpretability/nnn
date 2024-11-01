@@ -2,12 +2,14 @@
 ### EMNLP 2024
 ### [Arxiv](https://arxiv.org/abs/2410.24114) | [Documentation](https://multimodal-interpretability.csail.mit.edu/nnn/)
 
-<img align="right" width="42%" src="/assets/nnn_teaser.png">
+<img align="right" width="38%" class="teaser" src="/assets/nnn_teaser.png">
 
 [Neil Chowdhury](https://nchowdhury.com/)\*, [Franklin Wang](https://x.com/f_x_wang)\*, [Sumedh Shenoy](https://x.com/sumedhshenoy)\*, [Douwe Kiela](https://douwekiela.github.io/), [Sarah Schwettmann](https://cogconfluence.com/)†, [Tristan Thrush](http://www.tristanthrush.com/)†<br>
 \*equal contribution †equal advising
 
 Nearest Neighbor Normalization (NNN) is a simple and efficient training-free method for correcting errors in contrastive embedding-based retrieval!
+
+By efficiently computing bias scores across each image in the retrieval database, NNN is able to consistently improve multimodal retrieval accuracy across a wide range of models and datasets. For instance, **we improve CLIP's image recall accuracy for MS-COCO by 7.1%!**
 
 ## Installation
 
