@@ -1,9 +1,13 @@
-# Nearest Neighbor Normalization (EMNLP 2024)
+# Nearest Neighbor Normalization Improves Multimodal Retrieval
+### EMNLP 2024
+### [Arxiv](https://arxiv.org/abs/2410.24114) | [Documentation](https://multimodal-interpretability.csail.mit.edu/nnn/)
+
+<img align="right" width="42%" src="/assets/nnn_teaser.png">
+
+[Neil Chowdhury](https://nchowdhury.com/)\*, [Franklin Wang](https://x.com/f_x_wang)\*, [Sumedh Shenoy](https://x.com/sumedhshenoy)\*, [Douwe Kiela](https://douwekiela.github.io/), [Sarah Schwettmann](https://cogconfluence.com/)†, [Tristan Thrush](http://www.tristanthrush.com/)†<br>
+\*equal contribution †equal advising
+
 Nearest Neighbor Normalization (NNN) is a simple and efficient training-free method for correcting errors in contrastive embedding-based retrieval!
-
-Paper: https://arxiv.org/abs/2410.24114
-
-Documentation: https://multimodal-interpretability.csail.mit.edu/nnn/
 
 ## Installation
 
