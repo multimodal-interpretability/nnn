@@ -1,6 +1,6 @@
 # Nearest Neighbor Normalization Improves Multimodal Retrieval
 ### EMNLP 2024
-### [Arxiv](https://arxiv.org/abs/2410.24114) | [Documentation](https://multimodal-interpretability.csail.mit.edu/nnn/)
+### [ArXiv](https://arxiv.org/abs/2410.24114) | [Documentation](https://multimodal-interpretability.csail.mit.edu/nnn/)
 
 <img align="right" width="42%" src="/assets/nnn_teaser.png">
 
