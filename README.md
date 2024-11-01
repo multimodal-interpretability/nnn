@@ -1,8 +1,9 @@
 # Nearest Neighbor Normalization Improves Multimodal Retrieval
 ### EMNLP 2024
-### [ArXiv](https://arxiv.org/abs/2410.24114) | [Documentation](https://multimodal-interpretability.csail.mit.edu/nnn/)
 
 <img align="right" width="38%" class="teaser" src="/assets/nnn_teaser.png">
+
+### [ArXiv](https://arxiv.org/abs/2410.24114) | [Documentation](https://multimodal-interpretability.csail.mit.edu/nnn/)
 
 [Neil Chowdhury](https://nchowdhury.com/)\*, [Franklin Wang](https://x.com/f_x_wang)\*, [Sumedh Shenoy](https://x.com/sumedhshenoy)\*, [Douwe Kiela](https://douwekiela.github.io/), [Sarah Schwettmann](https://cogconfluence.com/)†, [Tristan Thrush](http://www.tristanthrush.com/)†<br>
 \*equal contribution †equal advising
