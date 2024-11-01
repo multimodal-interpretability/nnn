@@ -71,6 +71,18 @@ class DNRanker(Ranker):
         )
 
     def search(self, batch_query: np.matrix, top_k):
+        """
+        Searches for the top_k most similar items to the given batch of queries, using the 
+        test-time distribution normalization method to modify the similarity scores. 
+
+        Args:
+            batch_query (np.matrix): A batch of query embeddings. Dimensions are (n_queries, embedding_dim).
+            top_k (int): The number of top similar items to retrieve.
+
+        Returns:
+            The method should return an array of indices of the `top_k` most similar items in order
+            for each query in the batch, with dimensions (n_queries, top_k).
+        """
         torch_batch_query = torch.tensor(
             batch_query - self.dn_lambda * self.query_dev_embeds_avg, device=self.device
         )
