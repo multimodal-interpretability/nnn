@@ -23,6 +23,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',  # for Google-style docstrings
     'sphinx_autodoc_typehints',  # for type hints in docs
+    'sphinx.ext.autosummary',
 ]
 
 autodoc_default_options = {
