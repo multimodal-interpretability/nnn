@@ -1,20 +1,42 @@
-.. Nearest Neighbor Normalization documentation master file, created by
-   sphinx-quickstart on Fri Nov  1 14:52:49 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Nearest Neighbor Normalization documentation
 ============================================
 
 Here, you will find documentation for every API method in the nnn-retrieval pip package.
 See https://github.com/multimodal-interpretability/nnn for an overview of the package.
 
-.. autosummary::
-   :toctree: _autosummary
-   :recursive:
+**Contents**
 
-   nnn
+.. automodule:: nnn.nnn_ranker
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+.. automodule:: nnn.dn_ranker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: nnn.base_ranker
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: nnn.nnn_retriever
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: nnn.faiss_cpu_retriever
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: nnn.faiss_gpu_retriever
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: nnn.base_retriever
+   :members:
+   :undoc-members:
+   :show-inheritance:
