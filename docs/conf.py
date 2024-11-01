@@ -25,6 +25,11 @@ extensions = [
     'sphinx_autodoc_typehints',  # for type hints in docs
 ]
 
+autodoc_default_options = {
+    'members': True,
+    'special-members': '__init__'
+}
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
