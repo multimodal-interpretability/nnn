@@ -12,7 +12,7 @@ You can install NNN directly with `pip` using
 pip install nnn-retrieval
 ```
 
-For [Faiss](https://github.com/facebookresearch/faiss/) support (which significantly speeds up retrieval and retrieval dataset normalization calculations), follow the installation instructions [here](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md). NNN is compatible with both the CPU and GPU versions of Faiss.
+For [Faiss](https://github.com/facebookresearch/faiss/) support (which significantly speeds up retrieval and retrieval dataset normalization calculations), follow the instructions [here](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md) to install Faiss. NNN is compatible with both the CPU and GPU versions of Faiss.
 
 For development, you can clone this repo locally, then install the package from source using:
 ```
