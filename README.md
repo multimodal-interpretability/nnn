@@ -1,78 +1,61 @@
 # Nearest Neighbor Normalization (EMNLP 2024)
 Nearest Neighbor Normalization (NNN) is a simple and efficient training-free method for correcting errors in contrastive embedding-based retrieval!
 
+Paper: https://arxiv.org/abs/2410.24114
+Documentation: https://multimodal-interpretability.csail.mit.edu/nnn/
+
 ## Installation
 
 You can install NNN directly with `pip` using 
 ```
-pip install -e .
+pip install nnn-retrieval
 ```
 
 For [Faiss](https://github.com/facebookresearch/faiss/) support (which significantly speeds up retrieval and retrieval dataset normalization calculations), follow the installation instructions [here](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md). NNN is compatible with both the CPU and GPU versions of Faiss.
 
-For development, you can clone this repo locally, then install the package using:
+For development, you can clone this repo locally, then install the package from source using:
 ```
 pip install -e .[dev]
 ```
 
-## Example usage
+## Basic Usage
 
-Here's a demonstration of how to rerank CLIP embeddings using NNN. This is basic usage; for deployment, consider using a Faiss-based retriever for better performance (e.g. `FaissGPURetriever`).
+Here's how you can leverage NNN for text-to-image retrieval. To construct your retrieval database, you'll need:
+- `image_embeddings`: Your database of image embeddings that you are retrieving from
+- `reference_query_embeddings`: Your reference database of caption embeddings which NNN will use to compute the bias scores for each image embedding.
+    - For example, this might be the training captions for the MS-COCO dataset if we are doing image retrieval with captions similar to MS-COCO.
+    - Ideally, you should use a representative database of possible captions that are in-distribution to what you would see at inference time.
 
-To run this example, you'll need to install `transformers`, `pillow`, and `requests`.
+To instantiate the database and precompute the NNN bias scores, you can use the following code. The `image_embeddings` and `reference_query_embeddings` should be 2D NumPy arrays of shape `(|images|, embedding_dim)` and `(|reference_queries|, embedding_dim)`, respectively.
 
-```python
-import numpy as np
+With GPU:
+```
 from nnn import NNNRetriever, NNNRanker
-from transformers import CLIPProcessor, CLIPModel
-import torch
-from PIL import Image
-import requests
-from io import BytesIO
+nnn_retriever = NNNRetriever(image_embeddings.shape[1], use_gpu=True, gpu_id=0)
+nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=128, alternate_weight=0.75, batch_size=256, use_gpu=True, gpu_id=0)
+```
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+With CPU only:
+```
+from nnn import NNNRetriever, NNNRanker
+nnn_retriever = NNNRetriever(image_embeddings.shape[1])
+nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=128, alternate_weight=0.75, batch_size=256)
+```
 
-# Load the CLIP model
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+The `alternate_ks` and `alternate_weight` arguments are hyperparameters for NNN. We recommend sweeping through these parameters to obtain the best results, but in general `alternate_ks=128` and `alternate_weight=0.75` works pretty well. See Appendix-B of the NNN paper for more information about hyperparameter sweeping.
 
-# Example images as PyTorch tensors (replace with your images)
-image_urls = [
-    "https://upload.wikimedia.org/wikipedia/commons/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/00/St_Louis_night_expblend_cropped.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/d/da/The_Parthenon_in_Athens.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/4/48/Alabamahills.jpg"
-]
+Finally, to perform retrieval inference on a set of caption embeddings `text_embeddings` (also should be formatted as a 2D NumPy array), you can run:
+```
+scores, indices = nnn_ranker.search(text_embeddings, top_k=5)
+```
 
-images = [Image.open(BytesIO(requests.get(url, headers={'User-Agent': 'curl/7.64.1'}).content)) for url in image_urls]
-image_inputs = processor(images=images, return_tensors="pt").to(device)
+This will return the `top_k` highest retrieval scores and corresponding image indices for each caption embedding.
 
-# Embed the images using CLIP
-with torch.no_grad():
-    image_embeddings = model.get_image_features(**image_inputs).cpu().numpy()  # move back to CPU for NNN
+To use Faiss as the retrieval backend, simply swap the `NNNRetriever` for `FaissCPURetriever` or `FaissGPURetriever`.
 
-# Embed the caption text (used as an input for retrieval)
-caption = "A description of the images you want to match."
-text_inputs = processor(text=[caption], return_tensors="pt").to(device)
-with torch.no_grad():
-    text_embedding = model.get_text_features(**text_inputs).cpu().numpy()
+## Full Examples
 
-# Create reference embeddings from in-distribution captions
-reference_captions = [f"Reference caption {i}" for i in range(1, 11)]
-reference_inputs = processor(text=reference_captions, return_tensors="pt", padding=True, truncation=True).to(device)
-with torch.no_grad():
-    reference_embeddings = model.get_text_features(**reference_inputs).cpu().numpy()
-
-# Perform ranking using NNN
-if device == "cuda":
-    nnn_retriever = NNNRetriever(image_embeddings.shape[1], use_gpu=True, gpu_id=0)
-    nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=8, batch_size=8, use_gpu=True, gpu_id=0)
-else:
-    nnn_retriever = NNNRetriever(image_embeddings.shape[1])
-    nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=8, batch_size=8)
-
-_, indices = nnn_ranker.search(text_embedding, 5)
-print("Ranked image indices:", indices)
-# Ranked image indices: [[0 4 2 3 1]]
+In [examples/nnn_clip_flickr30k.py](https://github.com/multimodal-interpretability/nnn/blob/main/examples/nnn_clip_flickr_30k.py), we also show a full end-to-end example of using NNN for image-to-text retrieval using the Flickr30k dataset and the [CLIP](https://huggingface.co/openai/clip-vit-base-patch32) model. To install the additional dependencies for this example, you can run:
+```
+pip install transformers datasets
 ```
