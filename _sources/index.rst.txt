@@ -6,10 +6,8 @@
 Nearest Neighbor Normalization documentation
 ============================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+Here, you will find documentation for every API method in the nnn-retrieval pip package.
+See https://github.com/multimodal-interpretability/nnn for an overview of the package. 
 
 .. toctree::
    :maxdepth: 2
