@@ -1,21 +1,18 @@
-# nearest-neighbor-normalization
-Simple and efficient training-free methods for correcting errors in contrastive image-text retrieval!
-
+# Nearest Neighbor Normalization (EMNLP 2024)
+Nearest Neighbor Normalization (NNN) is a simple and efficient training-free method for correcting errors in contrastive embedding-based retrieval!
 
 ## Installation
 
-You can install directly using `pip install git+https://github.com/multimodal-interpretability/nnn.git`.
-
-For development, you can clone this repo locally, then install the package:
-
-For CPU-only:
+You can install NNN directly with `pip` using 
 ```
 pip install -e .
 ```
 
-(TODO: remove?) For Faiss GPU support, install the `gpu` extras:
+For [Faiss](https://github.com/facebookresearch/faiss/) support (which significantly speeds up retrieval and retrieval dataset normalization calculations), follow the installation instructions [here](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md). NNN is compatible with both the CPU and GPU versions of Faiss.
+
+For development, you can clone this repo locally, then install the package using:
 ```
-pip install -e .[gpu]
+pip install -e .[dev]
 ```
 
 ## Example usage
@@ -78,5 +75,4 @@ else:
 _, indices = nnn_ranker.search(text_embedding, 5)
 print("Ranked image indices:", indices)
 # Ranked image indices: [[0 4 2 3 1]]
-
 ```
