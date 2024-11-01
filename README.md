@@ -2,6 +2,7 @@
 Nearest Neighbor Normalization (NNN) is a simple and efficient training-free method for correcting errors in contrastive embedding-based retrieval!
 
 Paper: https://arxiv.org/abs/2410.24114
+
 Documentation: https://multimodal-interpretability.csail.mit.edu/nnn/
 
 ## Installation
