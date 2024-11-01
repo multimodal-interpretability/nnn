@@ -8,14 +8,14 @@ Documentation: https://multimodal-interpretability.csail.mit.edu/nnn/
 ## Installation
 
 You can install NNN directly with `pip` using 
-```
+```bash
 pip install nnn-retrieval
 ```
 
 For [Faiss](https://github.com/facebookresearch/faiss/) support (which significantly speeds up retrieval and retrieval dataset normalization calculations), follow the instructions [here](https://github.com/facebookresearch/faiss/blob/main/INSTALL.md) to install Faiss. NNN is compatible with both the CPU and GPU versions of Faiss.
 
 For development, you can clone this repo locally, then install the package from source using:
-```
+```bash
 pip install -e .[dev]
 ```
 
@@ -30,14 +30,14 @@ Here's how you can leverage NNN for text-to-image retrieval. To construct your r
 To instantiate the database and precompute the NNN bias scores, you can use the following code. The `image_embeddings` and `reference_query_embeddings` should be 2D NumPy arrays of shape `(|images|, embedding_dim)` and `(|reference_queries|, embedding_dim)`, respectively.
 
 With GPU:
-```
+```python
 from nnn import NNNRetriever, NNNRanker
 nnn_retriever = NNNRetriever(image_embeddings.shape[1], use_gpu=True, gpu_id=0)
 nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=128, alternate_weight=0.75, batch_size=256, use_gpu=True, gpu_id=0)
 ```
 
 With CPU only:
-```
+```python
 from nnn import NNNRetriever, NNNRanker
 nnn_retriever = NNNRetriever(image_embeddings.shape[1])
 nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, alternate_ks=128, alternate_weight=0.75, batch_size=256)
@@ -46,7 +46,7 @@ nnn_ranker = NNNRanker(nnn_retriever, image_embeddings, reference_embeddings, al
 The `alternate_ks` and `alternate_weight` arguments are hyperparameters for NNN. We recommend sweeping through these parameters to obtain the best results, but in general `alternate_ks=128` and `alternate_weight=0.75` works pretty well. See Appendix-B of the NNN paper for more information about hyperparameter sweeping.
 
 Finally, to perform retrieval inference on a set of caption embeddings `text_embeddings` (also should be formatted as a 2D NumPy array), you can run:
-```
+```python
 scores, indices = nnn_ranker.search(text_embeddings, top_k=5)
 ```
 
@@ -57,6 +57,6 @@ To use Faiss as the retrieval backend, simply swap the `NNNRetriever` for `Faiss
 ## Full Examples
 
 In [examples/nnn_clip_flickr30k.py](https://github.com/multimodal-interpretability/nnn/blob/main/examples/nnn_clip_flickr_30k.py), we also show a full end-to-end example of using NNN for image-to-text retrieval using the Flickr30k dataset and the [CLIP](https://huggingface.co/openai/clip-vit-base-patch32) model. To install the additional dependencies for this example, you can run:
-```
+```bash
 pip install transformers datasets
 ```
