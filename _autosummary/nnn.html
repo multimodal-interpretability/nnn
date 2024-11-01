@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>nnn &#8212; Nearest Neighbor Normalization 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=56c4699f" />
+    <script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nnn.base_ranker" href="nnn.base_ranker.html" />
+    <link rel="prev" title="Nearest Neighbor Normalization documentation" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-nnn">
+<span id="nnn"></span><h1>nnn<a class="headerlink" href="#module-nnn" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.BaseRanker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">BaseRanker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRanker" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nnn.BaseRanker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRanker.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.BaseRanker.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRanker.search" title="Link to this definition">¶</a></dt>
+<dd><p>Searches for the top_k most similar items to the given batch of queries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_query</strong> (<em>np.matrix</em>) – A batch of query embeddings. Dimensions are (n_queries, embedding_dim).</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – The number of top similar items to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The method should return an array of indices of the <cite>top_k</cite> most similar items in order
+for each query in the batch, with dimensions (n_queries, top_k).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.BaseRetriever">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">BaseRetriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRetriever" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nnn.BaseRetriever.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRetriever.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes a new instance of BaseRetriever.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embeds_size</strong> (<em>int</em>) – The dimension size of embeddings.</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will attempt to use GPU. Default is False.</p></li>
+<li><p><strong>gpu_id</strong> (<em>int</em><em>, </em><em>optional</em>) – Specifies GPU device ID if <cite>use_gpu</cite> is True.
+Default is -1 (no GPU device).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If <cite>use_gpu</cite> is True but <cite>gpu_id</cite> is not specified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.BaseRetriever.compute_alignment_means">
+<span class="sig-name descname"><span class="pre">compute_alignment_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRetriever.compute_alignment_means" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Computes mean similarity scores between per-retrieval embedding, using a given set reference embeddings.
+As described in the paper, these mean scores are later used as an additive correction to the base retrieval scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average across.i</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.BaseRetriever.retrieve">
+<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignment_means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRetriever.retrieve" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; all retrieval should be done from the Ranker interface.</p>
+<p>Retrieves the top_k most similar items for a batch of query embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>batch_query</strong> (<em>torch.Tensor</em>) – Query embeddings to retrieve items for.</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – Number of top items to retrieve.</p></li>
+<li><p><strong>alternate_weight</strong> (<em>float</em>) – Weight to adjust alignment means in similarity scores.</p></li>
+<li><p><strong>alignment_means</strong> (<em>torch.Tensor</em>) – Precomputed alignment means per retrieval embedding to adjust retrieval scores.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Contains two numpy arrays:</dt><dd><ul class="simple">
+<li><p>distances: The top-k similarity scores for each query.</p></li>
+<li><p>indices: The indices of the top-k retrieved items.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.BaseRetriever.setup_retriever">
+<span class="sig-name descname"><span class="pre">setup_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.BaseRetriever.setup_retriever" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Sets up the retriever by calculating alignment means for retrieval, allowing for alignment
+means to be used at inference time for retrieval as described in the paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.DNRanker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">DNRanker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_dev_embeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_dev_embeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dn_lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.DNRanker" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nnn.DNRanker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_dev_embeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_dev_embeds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dn_lambda</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.DNRanker.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.DNRanker.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.DNRanker.search" title="Link to this definition">¶</a></dt>
+<dd><p>Searches for the top_k most similar items to the given batch of queries, using the
+test-time distribution normalization method to modify the similarity scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_query</strong> (<em>np.matrix</em>) – A batch of query embeddings. Dimensions are (n_queries, embedding_dim).</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – The number of top similar items to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The method should return an array of indices of the <cite>top_k</cite> most similar items in order
+for each query in the batch, with dimensions (n_queries, top_k).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.NNNRanker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">NNNRanker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRanker" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nnn.NNNRanker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retriever</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRanker.__init__" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.NNNRanker.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRanker.search" title="Link to this definition">¶</a></dt>
+<dd><p>Searches for the top_k most similar items to the given batch of queries, using the
+test-time nearest neighbor normalization method to modify the similarity scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_query</strong> (<em>np.matrix</em>) – A batch of query embeddings. Dimensions are (n_queries, embedding_dim).</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – The number of top similar items to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The method should return an array of indices of the <cite>top_k</cite> most similar items in order
+for each query in the batch, with dimensions (n_queries, top_k).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.NNNRetriever">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">NNNRetriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRetriever" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nnn.NNNRetriever.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRetriever.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes a new instance of NNNRetriever.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embeds_size</strong> (<em>int</em>) – The dimension size of embeddings.</p></li>
+<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will attempt to use GPU. Default is False.</p></li>
+<li><p><strong>gpu_id</strong> (<em>int</em><em>, </em><em>optional</em>) – Specifies GPU device ID if <cite>use_gpu</cite> is True.
+Default is -1 (no GPU device).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Exception</strong> – If <cite>use_gpu</cite> is True but <cite>gpu_id</cite> is not specified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.NNNRetriever.compute_alignment_means">
+<span class="sig-name descname"><span class="pre">compute_alignment_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRetriever.compute_alignment_means" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Computes mean similarity scores between per-retrieval embedding, using a given set reference embeddings.
+As described in the paper, these mean scores are later used as an additive correction to the base retrieval scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average across.i</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.NNNRetriever.retrieve">
+<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignment_means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRetriever.retrieve" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; all retrieval should be done from the Ranker interface.</p>
+<p>Retrieves the top_k most similar items for a batch of query embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>batch_query</strong> (<em>torch.Tensor</em>) – Query embeddings to retrieve items for.</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – Number of top items to retrieve.</p></li>
+<li><p><strong>alternate_weight</strong> (<em>float</em>) – Weight to adjust alignment means in similarity scores.</p></li>
+<li><p><strong>alignment_means</strong> (<em>torch.Tensor</em>) – Precomputed alignment means per retrieval embedding to adjust retrieval scores.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Contains two numpy arrays:</dt><dd><ul class="simple">
+<li><p>distances: The top-k similarity scores for each query.</p></li>
+<li><p>indices: The indices of the top-k retrieved items.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.NNNRetriever.setup_retriever">
+<span class="sig-name descname"><span class="pre">setup_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.NNNRetriever.setup_retriever" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Sets up the retriever by calculating alignment means for retrieval, allowing for alignment
+means to be used at inference time for retrieval as described in the paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.Ranker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">Ranker</span></span><a class="headerlink" href="#nnn.Ranker" title="Link to this definition">¶</a></dt>
+<dd><p>In our framework, the Ranker class is responsible for the defining the method of score corrections to be used
+during retrieval. Currently supported methods of score corrections are our proposed method of Nearest Neighbor
+Normalization, Distribution Normalization (proposed in <a class="reference external" href="https://arxiv.org/abs/2302.11084">https://arxiv.org/abs/2302.11084</a>), and a base no-correction
+method.</p>
+<p>A ranker object is initialized with a retriever object, and orchestrates the actual search process by computing
+the necessary score corrections, then using the retriever object to perform search with these score corrections. See
+<a class="reference external" href="https://github.com/multimodal-interpretability/nnn">https://github.com/multimodal-interpretability/nnn</a> for examples of use.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.Ranker.search">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.Ranker.search" title="Link to this definition">¶</a></dt>
+<dd><p>Searches for the top_k most similar items to the given batch of queries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_query</strong> (<em>np.matrix</em>) – A batch of query embeddings. Dimensions are (n_queries, embedding_dim).</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – The number of top similar items to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">matrix</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">matrix</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The method should return an array of indices of the <cite>top_k</cite> most similar items in order
+for each query in the batch, with dimensions (n_queries, top_k).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnn.Retriever">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.</span></span><span class="sig-name descname"><span class="pre">Retriever</span></span><a class="headerlink" href="#nnn.Retriever" title="Link to this definition">¶</a></dt>
+<dd><p>In our framework, the Retriever class is responsible for the actual retrieval mechanisms. It is intended
+to define the method of retrieval (exhaustive search using Pytorch, narest-neighbor vector search using Faiss), and should
+be used with a Ranker class that defines the actual method of score corrections to be used during retrieval (which includes Nearest
+Neighbor Normalization). See the docs for the Ranker class for more detail.</p>
+<p>Note that the retriever class does not store any information locally, and depends on passed in values for retrieval embeddings,
+query embeddings, reference embeddings, and/or additive corrections, which what define the actual Nearest Neighbor Normalization
+method. Thus, it should be used with a ranker object, rather than directly used.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.Retriever.compute_alignment_means">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_alignment_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.Retriever.compute_alignment_means" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Computes mean similarity scores between per-retrieval embedding, using a given set reference embeddings.
+As described in the paper, these mean scores are later used as an additive correction to the base retrieval scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average across.i</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.Retriever.retrieve">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignment_means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.Retriever.retrieve" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; all retrieval should be done from the Ranker interface.</p>
+<p>Retrieves the top_k most similar items for a batch of query embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>batch_query</strong> (<em>torch.Tensor</em>) – Query embeddings to retrieve items for.</p></li>
+<li><p><strong>top_k</strong> (<em>int</em>) – Number of top items to retrieve.</p></li>
+<li><p><strong>alternate_weight</strong> (<em>float</em>) – Weight to adjust alignment means in similarity scores.</p></li>
+<li><p><strong>alignment_means</strong> (<em>torch.Tensor</em>) – Precomputed alignment means per retrieval embedding to adjust retrieval scores.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Contains two numpy arrays:</dt><dd><ul class="simple">
+<li><p>distances: The top-k similarity scores for each query.</p></li>
+<li><p>indices: The indices of the top-k retrieved items.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnn.Retriever.setup_retriever">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.Retriever.setup_retriever" title="Link to this definition">¶</a></dt>
+<dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
+<p>Sets up the retriever by calculating alignment means for retrieval, allowing for alignment
+means to be used at inference time for retrieval as described in the paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retrieval_embeds</strong> (<em>torch.Tensor</em>) – Embeddings from the retrieval set.</p></li>
+<li><p><strong>reference_embeds</strong> (<em>torch.Tensor</em>) – Reference embeddings to compare against.</p></li>
+<li><p><strong>alternate_ks</strong> (<em>int</em>) – Number of top-k reference scores to average.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of samples to process per batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of alignment means per retrieval embedding.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p class="rubric">Modules</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.base_ranker" title="nnn.base_ranker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_ranker</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.base_retriever" title="nnn.base_retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base_retriever</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.dn_ranker" title="nnn.dn_ranker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dn_ranker</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.faiss_cpu_retriever" title="nnn.faiss_cpu_retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faiss_cpu_retriever</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.faiss_gpu_retriever" title="nnn.faiss_gpu_retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faiss_gpu_retriever</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.nnn_ranker" title="nnn.nnn_ranker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnn_ranker</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.nnn_retriever" title="nnn.nnn_retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnn_retriever</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.ranker" title="nnn.ranker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ranker</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#module-nnn.retriever" title="nnn.retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">retriever</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Nearest Neighbor Normalization</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nnn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.BaseRanker"><code class="docutils literal notranslate"><span class="pre">BaseRanker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.BaseRanker.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRanker.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.BaseRanker.search"><code class="docutils literal notranslate"><span class="pre">BaseRanker.search()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.BaseRetriever"><code class="docutils literal notranslate"><span class="pre">BaseRetriever</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.BaseRetriever.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.BaseRetriever.compute_alignment_means"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.compute_alignment_means()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.BaseRetriever.retrieve"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.retrieve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.BaseRetriever.setup_retriever"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.setup_retriever()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.DNRanker"><code class="docutils literal notranslate"><span class="pre">DNRanker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.DNRanker.__init__"><code class="docutils literal notranslate"><span class="pre">DNRanker.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.DNRanker.search"><code class="docutils literal notranslate"><span class="pre">DNRanker.search()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.NNNRanker"><code class="docutils literal notranslate"><span class="pre">NNNRanker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.NNNRanker.__init__"><code class="docutils literal notranslate"><span class="pre">NNNRanker.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.NNNRanker.search"><code class="docutils literal notranslate"><span class="pre">NNNRanker.search()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.NNNRetriever"><code class="docutils literal notranslate"><span class="pre">NNNRetriever</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.NNNRetriever.__init__"><code class="docutils literal notranslate"><span class="pre">NNNRetriever.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.NNNRetriever.compute_alignment_means"><code class="docutils literal notranslate"><span class="pre">NNNRetriever.compute_alignment_means()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.NNNRetriever.retrieve"><code class="docutils literal notranslate"><span class="pre">NNNRetriever.retrieve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.NNNRetriever.setup_retriever"><code class="docutils literal notranslate"><span class="pre">NNNRetriever.setup_retriever()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.Ranker"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.Ranker.search"><code class="docutils literal notranslate"><span class="pre">Ranker.search()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nnn.Retriever"><code class="docutils literal notranslate"><span class="pre">Retriever</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.Retriever.compute_alignment_means"><code class="docutils literal notranslate"><span class="pre">Retriever.compute_alignment_means()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.Retriever.retrieve"><code class="docutils literal notranslate"><span class="pre">Retriever.retrieve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.Retriever.setup_retriever"><code class="docutils literal notranslate"><span class="pre">Retriever.setup_retriever()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.base_ranker.html">nnn.base_ranker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.base_retriever.html">nnn.base_retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.dn_ranker.html">nnn.dn_ranker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.faiss_cpu_retriever.html">nnn.faiss_cpu_retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.faiss_gpu_retriever.html">nnn.faiss_gpu_retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.nnn_ranker.html">nnn.nnn_ranker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.nnn_retriever.html">nnn.nnn_retriever</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.ranker.html">nnn.ranker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.retriever.html">nnn.retriever</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Nearest Neighbor Normalization documentation</a></li>
+      <li>Next: <a href="nnn.base_ranker.html" title="next chapter">nnn.base_ranker</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Sumedh Shenoy, Neil Chowdhury, Franklin Wang.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="../_sources/_autosummary/nnn.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

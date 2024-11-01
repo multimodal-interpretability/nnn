@@ -1,4 +1,4 @@
-﻿nnn.nnn\_retriever
+nnn.nnn\_retriever
 ==================
 
 .. automodule:: nnn.nnn_retriever

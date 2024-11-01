@@ -1,4 +1,4 @@
-﻿nnn.faiss\_cpu\_retriever
+nnn.faiss\_cpu\_retriever
 =========================
 
 .. automodule:: nnn.faiss_cpu_retriever

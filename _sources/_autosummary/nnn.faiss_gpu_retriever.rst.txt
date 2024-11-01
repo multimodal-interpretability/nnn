@@ -1,4 +1,4 @@
-﻿nnn.faiss\_gpu\_retriever
+nnn.faiss\_gpu\_retriever
 =========================
 
 .. automodule:: nnn.faiss_gpu_retriever

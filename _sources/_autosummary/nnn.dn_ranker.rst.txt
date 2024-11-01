@@ -1,4 +1,4 @@
-﻿nnn.dn\_ranker
+nnn.dn\_ranker
 ==============
 
 .. automodule:: nnn.dn_ranker

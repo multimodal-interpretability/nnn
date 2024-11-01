@@ -7,19 +7,14 @@ Nearest Neighbor Normalization documentation
 ============================================
 
 Here, you will find documentation for every API method in the nnn-retrieval pip package.
-See https://github.com/multimodal-interpretability/nnn for an overview of the package. 
+See https://github.com/multimodal-interpretability/nnn for an overview of the package.
+
+.. autosummary::
+   :toctree: _autosummary
+   :recursive:
+
+   nnn
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-.. autosummary::
-   :toctree: _autosummary
-   nnn.nnn_ranker
-   nnn.dn_ranker
-   nnn.base_ranker
-   nnn.nnn_retriever
-   nnn.faiss_cpu_retriever
-   nnn.faiss_gpu_retriever
-   nnn.base_retriever
-

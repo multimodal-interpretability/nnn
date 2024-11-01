@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>nnn.base_retriever &#8212; Nearest Neighbor Normalization 0.1.0 documentation</title>
+    <title>nnn.retriever &#8212; Nearest Neighbor Normalization 0.1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=56c4699f" />
@@ -14,8 +14,7 @@
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="nnn.dn_ranker" href="nnn.dn_ranker.html" />
-    <link rel="prev" title="nnn.base_ranker" href="nnn.base_ranker.html" />
+    <link rel="prev" title="nnn.ranker" href="nnn.ranker.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -33,41 +32,29 @@
 
           <div class="body" role="main">
             
-  <section id="module-nnn.base_retriever">
-<span id="nnn-base-retriever"></span><h1>nnn.base_retriever<a class="headerlink" href="#module-nnn.base_retriever" title="Link to this heading">¶</a></h1>
+  <section id="module-nnn.retriever">
+<span id="nnn-retriever"></span><h1>nnn.retriever<a class="headerlink" href="#module-nnn.retriever" title="Link to this heading">¶</a></h1>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#nnn.base_retriever.BaseRetriever" title="nnn.base_retriever.BaseRetriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseRetriever</span></code></a>(embeds_size[, use_gpu, gpu_id])</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../source/nnn.html#nnn.retriever.Retriever" title="nnn.retriever.Retriever"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Retriever</span></code></a>()</p></td>
+<td><p>In our framework, the Retriever class is responsible for the actual retrieval mechanisms.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
-<dt class="sig sig-object py" id="nnn.base_retriever.BaseRetriever">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.base_retriever.</span></span><span class="sig-name descname"><span class="pre">BaseRetriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.base_retriever.BaseRetriever" title="Link to this definition">¶</a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="nnn.base_retriever.BaseRetriever.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embeds_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.base_retriever.BaseRetriever.__init__" title="Link to this definition">¶</a></dt>
-<dd><p>Initializes a new instance of BaseRetriever.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>embeds_size</strong> (<em>int</em>) – The dimension size of embeddings.</p></li>
-<li><p><strong>use_gpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will attempt to use GPU. Default is False.</p></li>
-<li><p><strong>gpu_id</strong> (<em>int</em><em>, </em><em>optional</em>) – Specifies GPU device ID if <cite>use_gpu</cite> is True.
-Default is -1 (no GPU device).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Exception</strong> – If <cite>use_gpu</cite> is True but <cite>gpu_id</cite> is not specified.</p>
-</dd>
-</dl>
-</dd></dl>
-
+<dt class="sig sig-object py" id="nnn.retriever.Retriever">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnn.retriever.</span></span><span class="sig-name descname"><span class="pre">Retriever</span></span><a class="headerlink" href="#nnn.retriever.Retriever" title="Link to this definition">¶</a></dt>
+<dd><p>In our framework, the Retriever class is responsible for the actual retrieval mechanisms. It is intended
+to define the method of retrieval (exhaustive search using Pytorch, narest-neighbor vector search using Faiss), and should
+be used with a Ranker class that defines the actual method of score corrections to be used during retrieval (which includes Nearest
+Neighbor Normalization). See the docs for the Ranker class for more detail.</p>
+<p>Note that the retriever class does not store any information locally, and depends on passed in values for retrieval embeddings,
+query embeddings, reference embeddings, and/or additive corrections, which what define the actual Nearest Neighbor Normalization
+method. Thus, it should be used with a ranker object, rather than directly used.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="nnn.base_retriever.BaseRetriever.compute_alignment_means">
-<span class="sig-name descname"><span class="pre">compute_alignment_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.base_retriever.BaseRetriever.compute_alignment_means" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="nnn.retriever.Retriever.compute_alignment_means">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">compute_alignment_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.retriever.Retriever.compute_alignment_means" title="Link to this definition">¶</a></dt>
 <dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
 <p>Computes mean similarity scores between per-retrieval embedding, using a given set reference embeddings.
 As described in the paper, these mean scores are later used as an additive correction to the base retrieval scores.</p>
@@ -90,8 +77,8 @@ As described in the paper, these mean scores are later used as an additive corre
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="nnn.base_retriever.BaseRetriever.retrieve">
-<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignment_means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.base_retriever.BaseRetriever.retrieve" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="nnn.retriever.Retriever.retrieve">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alignment_means</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.retriever.Retriever.retrieve" title="Link to this definition">¶</a></dt>
 <dd><p>Not intended to be a public facing method; all retrieval should be done from the Ranker interface.</p>
 <p>Retrieves the top_k most similar items for a batch of query embeddings.</p>
 <dl class="field-list simple">
@@ -122,8 +109,8 @@ As described in the paper, these mean scores are later used as an additive corre
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="nnn.base_retriever.BaseRetriever.setup_retriever">
-<span class="sig-name descname"><span class="pre">setup_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.base_retriever.BaseRetriever.setup_retriever" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="nnn.retriever.Retriever.setup_retriever">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_retriever</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">retrieval_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embeds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternate_ks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnn.retriever.Retriever.setup_retriever" title="Link to this definition">¶</a></dt>
 <dd><p>Not intended to be a public facing method; should be called internally in the Ranker interface.</p>
 <p>Sets up the retriever by calculating alignment means for retrieval, allowing for alignment
 means to be used at inference time for retrieval as described in the paper.</p>
@@ -176,23 +163,22 @@ means to be used at inference time for retrieval as described in the paper.</p>
 <li class="toctree-l2"><a class="reference internal" href="nnn.html#nnn.Ranker"><code class="docutils literal notranslate"><span class="pre">Ranker</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.html#nnn.Retriever"><code class="docutils literal notranslate"><span class="pre">Retriever</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.base_ranker.html">nnn.base_ranker</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">nnn.base_retriever</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#nnn.base_retriever.BaseRetriever"><code class="docutils literal notranslate"><span class="pre">BaseRetriever</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#nnn.base_retriever.BaseRetriever.__init__"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#nnn.base_retriever.BaseRetriever.compute_alignment_means"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.compute_alignment_means()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#nnn.base_retriever.BaseRetriever.retrieve"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.retrieve()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#nnn.base_retriever.BaseRetriever.setup_retriever"><code class="docutils literal notranslate"><span class="pre">BaseRetriever.setup_retriever()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="nnn.base_retriever.html">nnn.base_retriever</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.dn_ranker.html">nnn.dn_ranker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.faiss_cpu_retriever.html">nnn.faiss_cpu_retriever</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.faiss_gpu_retriever.html">nnn.faiss_gpu_retriever</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.nnn_ranker.html">nnn.nnn_ranker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.nnn_retriever.html">nnn.nnn_retriever</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nnn.ranker.html">nnn.ranker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nnn.retriever.html">nnn.retriever</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">nnn.retriever</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnn.retriever.Retriever"><code class="docutils literal notranslate"><span class="pre">Retriever</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnn.retriever.Retriever.compute_alignment_means"><code class="docutils literal notranslate"><span class="pre">Retriever.compute_alignment_means()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnn.retriever.Retriever.retrieve"><code class="docutils literal notranslate"><span class="pre">Retriever.retrieve()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnn.retriever.Retriever.setup_retriever"><code class="docutils literal notranslate"><span class="pre">Retriever.setup_retriever()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -202,8 +188,7 @@ means to be used at inference time for retrieval as described in the paper.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="nnn.html">nnn</a><ul>
-      <li>Previous: <a href="nnn.base_ranker.html" title="previous chapter">nnn.base_ranker</a></li>
-      <li>Next: <a href="nnn.dn_ranker.html" title="next chapter">nnn.dn_ranker</a></li>
+      <li>Previous: <a href="nnn.ranker.html" title="previous chapter">nnn.ranker</a></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -238,7 +223,7 @@ means to be used at inference time for retrieval as described in the paper.</p>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
-      <a href="../_sources/_autosummary/nnn.base_retriever.rst.txt"
+      <a href="../_sources/_autosummary/nnn.retriever.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -1,4 +1,4 @@
-﻿nnn.base\_ranker
+nnn.base\_ranker
 ================
 
 .. automodule:: nnn.base_ranker

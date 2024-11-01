@@ -1,0 +1,12 @@
+nnn.ranker
+==========
+
+.. automodule:: nnn.ranker
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Ranker
+   
